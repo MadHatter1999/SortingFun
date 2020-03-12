@@ -1,0 +1,3 @@
+C:/Users/Antho/OneDrive/Desktop/C++/SortingFun/cmake-build-debug/CMakeFiles/SortingFun.dir
+C:/Users/Antho/OneDrive/Desktop/C++/SortingFun/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Antho/OneDrive/Desktop/C++/SortingFun/cmake-build-debug/CMakeFiles/rebuild_cache.dir
