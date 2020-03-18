@@ -5,6 +5,7 @@
 #include <chrono>
 #include <utility>
 #include <fstream>
+#include <queue>
 using namespace std;
 /// This Gives A randsom
 /// \return
@@ -173,6 +174,34 @@ int input(){
     cin>>number;
     return number;
 }
+
+
+int *radixSort(int array[]){
+    queue<int> bins[10]; //one array per possible digit
+    int maxDigits=5; //holds amount of digits in largest number
+    int currentDigit=1; //right most digit
+    int a[sizeof(array) / sizeof(array[0])]; //holds numbers during sort
+
+    while (currentDigit <= maxDigits) {
+        for(int i=0; i<1000; i++){ //loop through whole array
+            int num = array[i]; //set to current value of array position
+            int digitValue = static_cast<int>(num/currentDigit)%10; //get the decimal digit at current digit
+            bins[digitValue].push(num); //put digits in corresponding bins
+        }
+        //Transfer results of bins back into main array
+        for (int i=0; i<1000; i++){
+            for(int k=0;k<10;k++){ //loop through all bins
+                while (!bins[k].empty()){ //push all elements in bin[k] until empty to a
+                    int temp=bins[k].front();
+                    a[i]=temp;
+                    bins[k].pop();
+                }
+            }
+        }
+        currentDigit++;
+    }
+    return a;
+}
 ///
 ///0=bubble 1=selection 2=insertion 3=shell 4=quick 5=radix
 /// \param array
@@ -195,6 +224,12 @@ int getTime(int array[],int size,int mode){
         case 3:
             shellSort(array,size);
             break;
+        case 4:
+            quickSort(array,0,size-1);
+            break;
+        case 5:
+            radixSort(array);
+            break;
 
     }
     auto finish = chrono::high_resolution_clock::now();
@@ -205,9 +240,9 @@ int getTime(int array[],int size,int mode){
 
     return duration;
 }
-int getTime(int array[],int low,int high,int mode){
-    return 0;
-}
+
+
+
 ///
 void StartSort(){
     std::srand (time (0));
@@ -231,7 +266,7 @@ void StartSort(){
     AssignRand(arrayFive,largest);
 
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 6; ++i) {
         //Declaring the Temp arrays
         int T_arrayOne[smallest];
         int T_arrayTwo[small];
@@ -265,9 +300,9 @@ void StartSort(){
             case 4:
                 name="quick";
                 break;
-//            case 5:
-//                name="radix";
-//                break;
+            case 5:
+                name="radix";
+                break;
             default:
                 break;
         }
